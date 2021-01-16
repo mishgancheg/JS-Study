@@ -2,190 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Разделенный текст</title>
-    <script>
-    function splitText (text) { // название хоошее +
-        const FIRST_BLOCK_SIZE = Number(document.getElementById('first-block-size').value); // Принцип архитектуры
-        const BLOCK_SIZE = Number(document.getElementById('block-size').value);       // Выносить в отдельное место в константы все константы
-
-
-        // исправить название -> paragraphs
-        let paragraphs = text.split('.');  // +
-        paragraphs.pop();
-
-        for (let j = 0; j < paragraphs.length; j++) {
-            // заменить за for без i
-            paragraphs[j] = paragraphs[j] + ".";
-        }  // алгоритм +
-
-        let blocks = [];  // названия хорошие
-        let block1 = '';
-        let block2 = '';
-
-        const parStart = paragraphs[0]; // так как переменная имеет свою логику, даём ей своё персональное имя
-
-        // 2000, 1000 - сделать отдельными константами и вынести в интерфейс
-
-        while ((block1 + parStart).length <= FIRST_BLOCK_SIZE) { // 2000 это hardcode переменная
-            block1 += paragraphs.shift();
-        }
-        blocks.push(block1);
-
-
-        while (paragraphs.length > 0) {
-            while ((block2 + parStart).length <= BLOCK_SIZE) {
-                block2 += paragraphs.shift();
-            }
-            blocks.push(block2);
-            block2 = '';
-        }
-
-        return blocks;
-    }
-
-    function init () {
-        const blocks = splitText(document.getElementById('full-text').value);
-        const visibleText = blocks[0];
-        const alwaysVisibleDiv = document.getElementById('always-visible');
-        alwaysVisibleDiv.innerText = visibleText;
-        const comments = document.getElementById('comments');
-        let html = '';
-        for (let i = 1; i < blocks.length; i++) {
-            html += `<div class="comm">${blocks[i]}</div>`
-        }
-        comments.innerHTML = html;
-    }
-
-    function getStyle (id, name) {
-        const element = document.getElementById(id);
-        return element.currentStyle
-            ? element.currentStyle[name]
-            : window.getComputedStyle
-                ? window.getComputedStyle(element, null).getPropertyValue(name)
-                : null;
-    }
-
-    function showHideComments () {
-        const comments = document.getElementById('comments');
-        const display = getStyle('comments', 'display');
-        if (display === 'none') {
-            comments.style.display = 'block';
-            document.getElementById("Btn").innerText = 'Скрыть комментарии';
-        } else {
-            comments.style.display = 'none';
-            document.getElementById("Btn").innerText = 'Показать комментарии';
-        }
-
-    }
-
-    </script>
-    <style>
-        body {
-            overflow: scroll;
-        }
-
-        body, * {
-            font-family: Arial, sans-serif;
-        }
-
-        .header {
-            display: flex;
-            justify-content: center;
-        }
-
-        .header p {
-            font-family: Corbel, sans-serif;
-            font-size: 30px;
-            font-weight: 700;
-            color: white;
-            background-color: #1253fd;
-            border-radius: 50px;
-            padding: 13px 30px;
-        }
-
-        .wrapper {
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 60vw;
-        }
-
-        #always-visible {
-            display: flex;
-            justify-content: left;
-            padding: 15px 25px;
-            min-height: 200px;
-            background-color: white;
-            border: 6px solid #b9ffdb;
-            border-radius: 50px;
-        }
-
-        #comments {
-            display: none;
-            justify-content: left;
-            padding: 15px 25px;
-            min-height: 200px;
-            background-color: white;
-            border: 6px solid #b9ffef;
-            border-radius: 50px;
-
-        }
-
-        .comm {
-            padding: 15px 25px;
-            min-height: 200px;
-            background-color: white;
-            border: 3px solid #f5f5f5;
-            border-radius: 23px;
-            margin: 5px;
-
-            overflow: hidden;
-        }
-
-        .btn {
-            padding: 5px 10px;
-            outline: none;
-            background-color: #efefef;
-            border-radius: 50px;
-            border: 0px solid;
-            width: 200px;
-        }
-
-        .btn:hover {
-            background-color: #dbdbdb;
-        }
-
-        input {
-            padding: 5px 10px;
-            width: 60px;
-        }
-
-        label {
-            margin-left: 30px;
-            font-family: Corbel, sans-serif;
-        }
-
-        #full-text {
-            margin-top: 20px;
-            width: 100%;
-        }
-    </style>
+    <title>Instagram-splitter</title>
+    <script src="split-text.js"></script>
+    <link rel="stylesheet" href="split-text.css" type="text/css">
 </head>
-<body onload="init()">
-<div class="header"><p>Instagram-splitter</p></div>
+<body onLoad="init()">
+<div class="header"><p>INSTAGRAM-SPLITTER</p></div>
 <div class="wrapper">
     <div class="container">
-        <div id="always-visible"></div>
-        <button class="btn" id="Btn" onclick="showHideComments()">Показать комментарии</button>
-        <label for="first-block-size">Символов в первом блоке: <input id="first-block-size" type="number" value="2200"
-                                                                      min="500" step="100"></label>
-        <label for="block-size">Символов во втором блоке: <input id="block-size" type="number" value="1000" min="250"
-                                                                 step="50"></label>
-        <button class="btn" id="init" onclick="init ()">
-            Применить
-        </button>
         <textarea name="full-text" id="full-text" cols="30" rows="2">
   Предисловие: Наконец появилась возможность добраться до интернета, сейчас мы находимся в Панамском канале и здесь есть wifi. Я на судне уже больше месяца и пока я здесь, я писал все интересное что здесь происходит и вот наконец есть возможность этим поделиться. Фотографий пока не будет, их я выложу или позже, или уже когда вернусь домой. Итак, понеслась:
 
@@ -213,8 +37,18 @@
 Панамский канал.
 Возле входа в канал находится якорная стоянка, где куча судов стоит и ждет своей очереди на проход. Но, нам дали добро на проход практически без ожидания и постояв на якоре всего три часа, приехал лоцман, скомандовал "dead slow ahead" (самый малый вперед), я перевел ручку машинного телеграфа, похожую на автомобильный рычаг автоматической коробки передач в указанное положение, на что телеграф отозвался громким сигналом. Стрелка тахометра поползла вверх, судно слегка задрожало и мы медленно но верно начали набирать скорость и двигаться в сторону канала. Вход в канал со стороны океана выделен буями - десятки буев, выстроенные в две линии показывают единственный верный путь, выгладит грандиозно. А справа, за пальмами и дорогими виллами со стоящими рядом с ними роскошными яхтами, простирется огромный город небоскребов - Панама. А через десять минут открылось еще одно не менее грандиозное зрелище - строительство новых шлюзов, которые будут пропускать суда бОльших размеров, чем нынешние шлюзы. Но тут впереди из-за поворота показалась огромная стена, которая двигалась в нашу сторону. Навстречу нам шло судно-автомобилевоз Green Cove и так как канал - место совсем не широкое, автомобилевоз прошел от нас всего в 50 метрах, непривычно было стоя на мостике наблюдать столь близкое расхождение. А вот и буксиры. Это значит что мы подходим к шлюзам. Только мы подошли к шлюзу, как тут же нас привязали к резвым локомотивам - Мулам. Дальше все зависело только от них. 4 Мула держали нас с разных сторон и уже они руководили процессом, они нас резво разгоняли и останавливали в нужном месте и терпеливо ждали пока шлюз не наполнится водой. Так как наше судно не очень широкое, проблем с заходом в шлюз не было, а по длине получилось так, что за нами сзади поместилось еще одно небольшое судно. Правда мы оказались более быстроходными и пока мы шли от тихоокеанских до атлантических шлюзов по каналу и озеру Гатун, это судно безнадежно отстало, но нам пришлось его ждать :(
     </textarea>
-        <div id="comments">
-        </div>
+        <label class="btn" for="first-block-size">Символов в первом блоке:
+            <input class="input" id="first-block-size" type="number" value="2200" min="500" step="100">
+        </label>
+        <label class="btn" for="block-size">Символов во втором блоке:
+            <input class="input" id="block-size" type="number" value="1000" min="250" step="50">
+        </label>
+        <button class="btn" id="init" onclick="init ()">
+            Применить
+        </button>
+        <div id="always-visible"></div>
+        <button class="btn" id="Btn" onclick="showComments()">Показать комментарии</button>
+        <div id="comments"></div>
 
 
     </div>
