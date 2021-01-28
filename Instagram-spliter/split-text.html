@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="split-text.css" type="text/css">
 </head>
 <body onLoad="init()">
-<div class="header"><p>INSTAGRAM-SPLITTER</p></div>
+<div class="header"><p>INSTAGRAM-SPLITTER</p>
+<div id="about-program"></div>
+</div>
 <div class="wrapper">
+
     <div class="container">
+        <div id="label">Впишите текст для разбиения ниже, укажите колличества символов в главном блоке и в комментариях, а затем нажмите на кнопку "Применить"</div>
         <textarea name="full-text" id="full-text" cols="30" rows="2">
   Предисловие: Наконец появилась возможность добраться до интернета, сейчас мы находимся в Панамском канале и здесь есть wifi. Я на судне уже больше месяца и пока я здесь, я писал все интересное что здесь происходит и вот наконец есть возможность этим поделиться. Фотографий пока не будет, их я выложу или позже, или уже когда вернусь домой. Итак, понеслась:
 
@@ -50,7 +54,7 @@
         <button class="btn" id="Btn" onclick="showComments()">Показать комментарии</button>
         <div id="comments"></div>
 
-
+        <div id="about-author"><br><br><br>By Michael Makarov</div>
     </div>
 </div>
 </body>

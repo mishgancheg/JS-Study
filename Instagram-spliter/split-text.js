@@ -68,3 +68,7 @@ function showComments () {
 
 }
 
+function showHideInfo(){
+    
+}
+
