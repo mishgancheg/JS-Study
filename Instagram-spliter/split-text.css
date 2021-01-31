@@ -152,8 +152,9 @@ label {
     position: absolute;
     width: 280px;
     height: 180px;
-    top: 80px;
+    top: 90px;
     right: 0;
     box-shadow: 0 0 10px #626262;
     z-index: 2;
+    padding: 10px;
 }
