@@ -1,6 +1,38 @@
-function splitText (text) { // название хоошее +
-    const FIRST_BLOCK_SIZE = Number(document.getElementById('first-block-size').value);
-    const BLOCK_SIZE = Number(document.getElementById('block-size').value);
+//############## библиоткчка ############################
+function getEl(id) {
+    return document.getElementById(id);
+}
+
+function showHideEl(idOrEl, isShow) {
+    if (typeof idOrEl === "string") {
+        idOrEl = getEl(idOrEl);
+    }
+    if (typeof idOrEl === "object") {
+        idOrEl.style.display = isShow ? 'block' : 'none';
+    }
+}
+
+function hideEl(idOrEl) {
+    showHideEl(idOrEl, false);
+}
+
+function showEl(idOrEl) {
+    showHideEl(idOrEl, true);
+}
+
+function getStyle(id, styleName) {
+    const element = getEl(id);
+    return element.currentStyle
+        ? element.currentStyle[styleName]
+        : window.getComputedStyle
+            ? window.getComputedStyle(element, null).getPropertyValue(styleName)
+            : null;
+}
+// ##############################################################
+
+function splitText(text) { // название хоошее +
+    const FIRST_BLOCK_SIZE = Number(getEl('first-block-size').value);
+    const BLOCK_SIZE = Number(getEl('block-size').value);
 
 
     let paragraphs = text.split('.');
@@ -35,50 +67,37 @@ function splitText (text) { // название хоошее +
     return blocks;
 }
 
-function init () {
-    const blocks = splitText(document.getElementById('full-text').value);
+function init() {
+    const blocks = splitText(getEl('full-text').value);
     const visibleText = blocks[0];
-    const alwaysVisibleDiv = document.getElementById('always-visible');
+    const alwaysVisibleDiv = getEl('always-visible');
     alwaysVisibleDiv.innerText = visibleText;
-    const comments = document.getElementById('comments');
+    const comments = getEl('comments');
     let html = '';
     for (let i = 1; i < blocks.length; i++) {
         html += `<div class="comm">${blocks[i]}</div>`
     }
     comments.innerHTML = html;
-    document.getElementById("info-button").onclick = function(event) {
+    getEl("info-button").onclick = function (event) {
         event.stopPropagation();
         showInfo();
     }
 }
 
-function getStyle (id, name) {
-    const element = document.getElementById(id);
-    return element.currentStyle
-        ? element.currentStyle[name]
-        : window.getComputedStyle
-            ? window.getComputedStyle(element, null).getPropertyValue(name)
-            : null;
+function showComments() {
+    showEl('comments');
+    const btnEl = getEl('Btn');
+    hideEl(btnEl);
+    btnEl.innerText = 'Скрыть комментарии';
 }
 
-function showComments () {
-    const comments = document.getElementById('comments');
-    const OPEN_COMMENTS = document.getElementById('Btn');
-    const display = getStyle('comments', 'display');
-    comments.style.display = 'block';
-    OPEN_COMMENTS.style.display = 'none';
-    document.getElementById("Btn").innerText = 'Скрыть комментарии';
-
+function showInfo(event) {
+    showEl('shadow');
+    showEl('info-dialog');
 }
 
-function showInfo(event){
-    console.log(event)
-        document.getElementById('shadow').style.display = 'block';
-        document.getElementById('info-dialog').style.display = 'block';
-}
-
-function hideInfo(){
-    document.getElementById('shadow').style.display = 'none';
-    document.getElementById('info-dialog').style.display = 'none';
+function hideInfo() {
+    hideEl('shadow');
+    hideEl('info-dialog');
 }
 
