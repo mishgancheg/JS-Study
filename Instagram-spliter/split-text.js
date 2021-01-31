@@ -36,7 +36,6 @@ function splitText (text) { // название хоошее +
 }
 
 function init () {
-    debugger;
     const blocks = splitText(document.getElementById('full-text').value);
     const visibleText = blocks[0];
     const alwaysVisibleDiv = document.getElementById('always-visible');
@@ -47,6 +46,10 @@ function init () {
         html += `<div class="comm">${blocks[i]}</div>`
     }
     comments.innerHTML = html;
+    document.getElementById("info-button").onclick = function(event) {
+        event.stopPropagation();
+        showInfo();
+    }
 }
 
 function getStyle (id, name) {
@@ -68,7 +71,14 @@ function showComments () {
 
 }
 
-function showHideInfo(){
-    
+function showInfo(event){
+    console.log(event)
+        document.getElementById('shadow').style.display = 'block';
+        document.getElementById('info-dialog').style.display = 'block';
+}
+
+function hideInfo(){
+    document.getElementById('shadow').style.display = 'none';
+    document.getElementById('info-dialog').style.display = 'none';
 }
 

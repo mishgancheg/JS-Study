@@ -6,15 +6,30 @@
     <script src="split-text.js"></script>
     <link rel="stylesheet" href="split-text.css" type="text/css">
 </head>
-<body onLoad="init()">
-<div class="header"><p>INSTAGRAM-SPLITTER</p>
-<div id="about-program"></div>
-</div>
-<div class="wrapper">
+<body onLoad="init()" onclick="hideInfo()">
+<div class="out-all">
+    <div class="header">
+        <div class="container wrapper">
+            <div style="min-width: 10% "></div>
+            <div style="min-width: 80%;" class="wrapper">
+                <p>INSTAGRAM-SPLITTER</p>
+            </div>
+            <div id="info-container" class="wrapper" >
+                <button id="info-button">Info</button>
+                <div id="info-dialog" class="rounded"></div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
 
-    <div class="container">
-        <div id="label">Впишите текст для разбиения ниже, укажите колличества символов в главном блоке и в комментариях, а затем нажмите на кнопку "Применить"</div>
-        <textarea name="full-text" id="full-text" cols="30" rows="2">
+        <div class="container">
+
+            <div id="label" class="rounded">Впишите текст для разбиения ниже, укажите колличества символов в главном
+                блоке и
+                в комментариях,
+                а затем нажмите на кнопку "Применить"
+            </div>
+            <textarea name="full-text" id="full-text" class="rounded">
   Предисловие: Наконец появилась возможность добраться до интернета, сейчас мы находимся в Панамском канале и здесь есть wifi. Я на судне уже больше месяца и пока я здесь, я писал все интересное что здесь происходит и вот наконец есть возможность этим поделиться. Фотографий пока не будет, их я выложу или позже, или уже когда вернусь домой. Итак, понеслась:
 
 Первые впечатления
@@ -41,21 +56,30 @@
 Панамский канал.
 Возле входа в канал находится якорная стоянка, где куча судов стоит и ждет своей очереди на проход. Но, нам дали добро на проход практически без ожидания и постояв на якоре всего три часа, приехал лоцман, скомандовал "dead slow ahead" (самый малый вперед), я перевел ручку машинного телеграфа, похожую на автомобильный рычаг автоматической коробки передач в указанное положение, на что телеграф отозвался громким сигналом. Стрелка тахометра поползла вверх, судно слегка задрожало и мы медленно но верно начали набирать скорость и двигаться в сторону канала. Вход в канал со стороны океана выделен буями - десятки буев, выстроенные в две линии показывают единственный верный путь, выгладит грандиозно. А справа, за пальмами и дорогими виллами со стоящими рядом с ними роскошными яхтами, простирется огромный город небоскребов - Панама. А через десять минут открылось еще одно не менее грандиозное зрелище - строительство новых шлюзов, которые будут пропускать суда бОльших размеров, чем нынешние шлюзы. Но тут впереди из-за поворота показалась огромная стена, которая двигалась в нашу сторону. Навстречу нам шло судно-автомобилевоз Green Cove и так как канал - место совсем не широкое, автомобилевоз прошел от нас всего в 50 метрах, непривычно было стоя на мостике наблюдать столь близкое расхождение. А вот и буксиры. Это значит что мы подходим к шлюзам. Только мы подошли к шлюзу, как тут же нас привязали к резвым локомотивам - Мулам. Дальше все зависело только от них. 4 Мула держали нас с разных сторон и уже они руководили процессом, они нас резво разгоняли и останавливали в нужном месте и терпеливо ждали пока шлюз не наполнится водой. Так как наше судно не очень широкое, проблем с заходом в шлюз не было, а по длине получилось так, что за нами сзади поместилось еще одно небольшое судно. Правда мы оказались более быстроходными и пока мы шли от тихоокеанских до атлантических шлюзов по каналу и озеру Гатун, это судно безнадежно отстало, но нам пришлось его ждать :(
     </textarea>
-        <label class="btn" for="first-block-size">Символов в первом блоке:
-            <input class="input" id="first-block-size" type="number" value="2200" min="500" step="100">
-        </label>
-        <label class="btn" for="block-size">Символов во втором блоке:
-            <input class="input" id="block-size" type="number" value="1000" min="250" step="50">
-        </label>
-        <button class="btn" id="init" onclick="init ()">
-            Применить
-        </button>
-        <div id="always-visible"></div>
-        <button class="btn" id="Btn" onclick="showComments()">Показать комментарии</button>
-        <div id="comments"></div>
 
-        <div id="about-author"><br><br><br>By Michael Makarov</div>
+            <div class="wrapper" style="justify-content: space-between">
+                <label class="btn rounded triple-flex" for="first-block-size">Символов в первом блоке:
+                    <input class="input" id="first-block-size" type="number" value="2200" min="500" step="100">
+                </label>
+                <label class="btn rounded triple-flex" for="block-size">Символов во втором блоке:
+                    <input class="input" id="block-size" type="number" value="1000" min="250" step="50">
+                </label>
+                <button class="btn rounded triple-flex" id="init" onclick="init ()">
+                    Применить
+                </button>
+            </div>
+
+
+            <div id="always-visible" class="rounded"></div>
+            <button class="btn rounded" id="Btn" onclick="showComments()">Показать комментарии</button>
+            <div id="comments" class="rounded"></div>
+
+            <div id="about-author"><br><br><br>By Michael Makarov</div>
+        </div>
     </div>
+    <div id="shadow"></div>
+
 </div>
+
 </body>
 </html>
